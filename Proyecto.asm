@@ -140,7 +140,6 @@ start:
 		mov ax, x
 		add ax, a
 		mov x, ax
-		cmp ax, 20
 		endp
 
 		; *Imprimir posicion del cono*
@@ -211,24 +210,6 @@ start:
 		call print3
 		endp
 		
-		proc picary
-		mov ax,auxp
-		aam
-		add ax,03030h
-		lea dx,ax
-		mov ah,02h
-		int 21h 
-		;Imprimo decena en numero de dos digitos
-		mov ax,aux
-		aam
-		add ax,03030h
-		lea dx,ax
-		mov ah,02h
-		int 21h
-		call print3
-		;Imprimo unidad en numero de dos digitos 
-		endp
-		
 		proc print3
         lea dx,corchete
         mov ah,09h
@@ -260,12 +241,9 @@ start:
 			cmp ax,x
 			jz resultado
 			jnz resultado_zero
-		;El objeto se movera indefinidamente pero para detener la ejecucion del programa en algun punto se determina que el programa finalizara la ejecucion cuando llegue a la posicion 20
 		endp	
 		proc recorrido_2
 			mov ax, a
-			cmp ax, 20
-			ja call fin
 			cmp caso, 1
 			je call cumple
 
@@ -458,18 +436,18 @@ start:
 		endp    
 		    
 		    proc printact3
-			mov ax,0
-			aam
-			add ax,03030h
-			lea dx,ax
-			mov ah,02h
-			int 21h
             lea dx,corchete
             mov ah,09h
             int 21h
             lea dx,salto
             mov ah,09h
             int 21h
+			lea dx,repeat
+			mov ah,9h
+			int 21h
+			lea dx,salto
+			mov ah,09h
+			int 21h
 			call recorrido
     		endp
     	
@@ -653,7 +631,7 @@ start:
 
 		proc continuar :
 			mov ax, a
-			add ax, 1
+			add ax, 2
 			mov a, ax
 			mov ax,0
 			mov b,ax 
@@ -699,10 +677,7 @@ start:
 	endp	
 		
 		mov ax, a
-		cmp ax, 20
-		jz call fin
-		ja call fin
-		jb call random 
+		call random 
 	    endp
 		proc fin :        
 
