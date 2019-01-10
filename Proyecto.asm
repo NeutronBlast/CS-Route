@@ -19,24 +19,26 @@ inicio dw ' Bienvenido, para mover el carro utilice las flechas de izquierda y d
 instruccion dw 'Cuando el cono se encuentre 1 casilla adelante del carro utilice la flecha$'
 instruccion_2 dw 'de arriba para esquivarlo$'
 aclaracion dw 'Luego de esquivar el cono, el carro va a volver a su trayectoria normal de$'
-aclaracion_2 dw 'forma automÃ¡tica$'
+aclaracion_2 dw 'forma automÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡tica$'
 advertencia dw 'Si choca o se sale del rango el programa termina$'
 mensaje_1 dw 'Cuidado! hay un cono en [ $'
+repeat dw 'Esperando a el conductor...$'
 mensaje_2 dw 'El carro se encuentra en [ $'
 mensaje_3 dw 'El carro se acaba de ubicar en [ $'
 mensaje_4 dw ' con un giro de $'
 mensaje_41 dw ' grados para esquivar el cono$'
 mensaje_5 dw 'El carro ha regresado a su curso normal en [ $' 
 mensaje_6 dw 'Te has salido del rango! $'
+mensaje_7 dw 'Te has ubicado en la misma casilla del cono! has chocado!$'
 adorno dw '****************** EMPIEZA EL RECORRIDO *************************$'
 empieza dw 'Usted empieza el recorrido en la casilla [ 1 ] [ 0 ]$'
     pkey db "Presiona cualquier tecla para continuar...$"  
     
     
 ;Funcionamiento: El objeto va en la trayectoria [x][0] (recto)
-;En la pantalla dice que ha aparecido un cono, es sÃ¯Â¿Â½lo un ejemplo didÃ¯Â¿Â½ctico, puede ser cualquier tipo de obstÃ¯Â¿Â½culo
+;En la pantalla dice que ha aparecido un cono, es sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½lo un ejemplo didÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ctico, puede ser cualquier tipo de obstÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½culo
 ;Si [x+1][0] del carro = [x][0] del cono hay que mover el carro con la flecha de arriba para esquivarlo
-;Luego de esquivar el cono el programa va a calcular el Ã¯Â¿Â½ngulo de giro del carro desde la posiciÃ¯Â¿Â½n hacia donde girÃ¯Â¿Â½ hasta la posiciÃ¯Â¿Â½n donde se moviÃ¯Â¿Â½ 
+;Luego de esquivar el cono el programa va a calcular el ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo de giro del carro desde la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n hacia donde girÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ hasta la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n donde se moviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ 
 ends
 
 stack segment
@@ -114,7 +116,7 @@ start:
 	int 21h
 
 
-;Genera un numero pseudo aleatorio con la siguiente fÃ¯Â¿Â½rmula matemÃ¯Â¿Â½tica x = (seed*r2 + r1) % lÃ¯Â¿Â½mite;
+;Genera un numero pseudo aleatorio con la siguiente fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½rmula matemÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½tica x = (seed*r2 + r1) % lÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mite;
 		
 		proc random
 		mov ax, seed
@@ -132,17 +134,17 @@ start:
 		; x = x%limite
 		mov x,dx
 		mov ax,seed
-		; Agrego uno a la semilla para generar un nÃ¯Â¿Â½mero diferente la prÃ¯Â¿Â½xima vez
+		; Agrego uno a la semilla para generar un nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero diferente la prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½xima vez
 		add ax,1
 		mov seed,ax
-		; Ya generÃ¯Â¿Â½ el numero al azar, ahora agregarÃ¯Â¿Â½ ese numero al azar a la posiciÃ¯Â¿Â½n actual del objeto para que vayan apareciendo obstÃ¯Â¿Â½culos
+		; Ya generÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ el numero al azar, ahora agregarÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ ese numero al azar a la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual del objeto para que vayan apareciendo obstÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½culos
 		mov ax, x
 		add ax, a
 		mov x, ax
 		cmp ax, 20
 		endp
 
-		; *Imprimir posiciÃ¯Â¿Â½n del cono*
+		; *Imprimir posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n del cono*
 		proc printob1: 		
 		lea dx,mensaje_1
 		mov ah,09h
@@ -172,7 +174,7 @@ start:
 		cwd
 		div cx
 		mov aux,dx 
-		;Imprimo decena en nÃ¯Â¿Â½mero de dos dÃ¯Â¿Â½gitos
+		;Imprimo decena en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -180,7 +182,7 @@ start:
 		mov ah,02h
 		int 21h
 		call print2
-		;Imprimo unidad en nÃ¯Â¿Â½mero de dos dÃ¯Â¿Â½gitos 
+		;Imprimo unidad en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos 
 		endp
 		
 		
@@ -217,7 +219,7 @@ start:
 		lea dx,ax
 		mov ah,02h
 		int 21h 
-		;Imprimo decena en nÃ¯Â¿Â½mero de dos dÃ¯Â¿Â½gitos
+		;Imprimo decena en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -225,7 +227,7 @@ start:
 		mov ah,02h
 		int 21h
 		call print3
-		;Imprimo unidad en nÃ¯Â¿Â½mero de dos dÃ¯Â¿Â½gitos 
+		;Imprimo unidad en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos 
 		endp
 		
 		proc print3
@@ -238,6 +240,15 @@ start:
         lea dx,salto
         mov ah,09h
         int 21h
+		lea dx, repeat
+		mov ah,09h
+		int 21h
+		lea dx,salto
+		mov ah,09h
+		int 21h
+		lea dx,salto
+		mov ah,09h
+		int 21h
         endp
 		    
 		proc recorrido
@@ -245,13 +256,19 @@ start:
 			mov ax,funcion
 		    mov ax,0
 		    mov funcion,ax
-		;El objeto se moverÃ¯Â¿Â½ indefinidamente pero para detener la ejecuciÃ¯Â¿Â½n del programa en algun punto se determinÃ¯Â¿Â½ que el programa finalizarÃ¯Â¿Â½ la ejecuciÃ¯Â¿Â½n cuando llegue a la posiciÃ¯Â¿Â½n 20
+			mov ax, a
+			add ax,1
+			cmp ax,x
+			jz resultado
+			jnz resultado_zero
+		;El objeto se moverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ indefinidamente pero para detener la ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n del programa en algun punto se determinÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ que el programa finalizarÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ la ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n cuando llegue a la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n 20
+		endp	
+		proc recorrido_2
 			mov ax, a
 			cmp ax, 20
 			ja call fin
 			cmp caso, 1
 			je call cumple
-			mov ax, a
 
 
 			mov ah, 01h ;Chequear si alguna tecla esta pulsada
@@ -270,7 +287,7 @@ start:
 						mov a, ax
 						mov b, cx
 						mov bx, x
-						cmp ax,-1
+						cmp ax,0
 						jz call fuerarango
 						cmp bx, ax
 						jz call resultado
@@ -283,6 +300,7 @@ start:
 						mov a, ax
 						mov b, cx
 						mov bx, x
+						call comprobar_si_choco
 						call imprimiractual
 						cmp bx, ax
 						jz call resultado
@@ -291,10 +309,26 @@ start:
 			end_verificar:
 		endp
 
+		proc comprobar_si_choco
+		mov bx,a
+		cmp bx,x
+		jz chocaste 
+		endp
+
+		proc chocaste
+		lea dx,mensaje_7
+		mov ah,9h
+		int 21h
+		lea dx,salto
+		mov ah,9h
+		int 21h
+		call fin
+		endp
+
 
 		proc imprimiractual
-		; Si la posiciÃ¯Â¿Â½n actual del objeto+1 es igual a la posiciÃ¯Â¿Â½n del obstaculo el objeto se moverÃ¯Â¿Â½			
-			;*Imprimir posiciÃ¯Â¿Â½n actual del objeto*
+		; Si la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual del objeto+1 es igual a la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n del obstaculo el objeto se moverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½			
+			;*Imprimir posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual del objeto*
 			lea dx,mensaje_2
     		mov ah,09h
     		int 21h
@@ -320,7 +354,7 @@ start:
 		cwd
 		div cx
 		mov aux,dx 
-		;Imprimo decena en numero de dos dÃ¯Â¿Â½gitos
+		;Imprimo decena en numero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -329,7 +363,7 @@ start:
 		int 21h
 		mov ax,funcion
 		cmp ax, 0
-		;Veo si imprimo la posicion actual o la posiciÃ¯Â¿Â½n donde se moviÃ¯Â¿Â½
+		;Veo si imprimo la posicion actual o la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n donde se moviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½
 		jz call printact2
 		cmp ax, 1
 		jz call imprimirmovimiento2
@@ -338,7 +372,7 @@ start:
 		;Fuera de rango
 		cmp ax,10
 		jz call fin
-		;Imprimo unidad en numero de dos dÃ¯Â¿Â½gitos 
+		;Imprimo unidad en numero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos 
 		endp
 		
 		
@@ -350,7 +384,7 @@ start:
 		int 21h
 		mov ax,funcion
 		cmp ax, 0
-		;Veo si imprimo la posiciÃ¯Â¿Â½n actual o la posiciÃ¯Â¿Â½n donde se moviÃ¯Â¿Â½
+		;Veo si imprimo la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual o la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n donde se moviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½
 		jz call printact2
 		cmp ax,1
 		jz call imprimirmovimiento2  
@@ -390,7 +424,7 @@ start:
 		cwd
 		div cx
 		mov aux,dx 
-		;Imprimo decena en nÃ¯Â¿Â½mero de dos dÃ¯Â¿Â½gitos
+		;Imprimo decena en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -408,6 +442,11 @@ start:
 		endp
 		
 		proc imprimirunidadacty
+		aam
+		add ax,03030h
+		lea dx,ax
+		mov ah,02h
+		int 21h
 		mov ax,funcion
 		cmp ax,0
 		
@@ -435,12 +474,12 @@ start:
     	
 			proc resultado :
 			mov caso, 1
-			call recorrido
+			call recorrido_2
 			endp
 
 			proc resultado_zero :
 			mov caso, 0
-			call recorrido   
+			call recorrido_2 
 			endp
 
 			proc cumple
@@ -515,7 +554,7 @@ start:
 
 		proc producto_escalar		
 		; Producto escalar(a, b) y(a - 1, b - 2)
-		; Producto escalar entre la posiciÃ¯Â¿Â½n antes de moverse y la posiciÃ¯Â¿Â½n luego de moverse
+		; Producto escalar entre la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n antes de moverse y la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n luego de moverse
 			mov cx, a
 			dec cx
 			mov ax, x
@@ -527,7 +566,7 @@ start:
 			mul cx
 			add p, ax
 			mov caso, 0
-		; FÃ¯Â¿Â½rmula usada para calcular el Ã¯Â¿Â½ngulo = ( producto escalar * 10 ) % 90
+		; FÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½rmula usada para calcular el ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo = ( producto escalar * 10 ) % 90
 			mov cx, 10
 			mov ax, p
 			mul cx
@@ -549,7 +588,7 @@ start:
 		    endp
 		    
 		    proc uno 
-		    ;Imprime Ã¯Â¿Â½ngulo de una cifra
+		    ;Imprime ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo de una cifra
 		    mov ax,p
 		    aam
     		add ax,03030h
@@ -560,7 +599,7 @@ start:
 		    endp                
 		    
 		    proc dos
-		    ;Imprime Ã¯Â¿Â½ngulo de dos cifras
+		    ;Imprime ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo de dos cifras
 		    mov ax,p
 		    mov cx,10 
     		cwd
@@ -577,7 +616,7 @@ start:
     		cwd
     		div cx
     		mov aux,dx 
-    		;Imprimo decena en numero de dos dÃ¯Â¿Â½gitos
+    		;Imprimo decena en numero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
     		mov ax,aux
     		aam
     		add ax,03030h
@@ -594,7 +633,7 @@ start:
     		lea dx,salto
             mov ah,09h
             int 21h
-			;Devuelve el objeto a la trayectoria normal (funciÃ¯Â¿Â½n y=x)
+			;Devuelve el objeto a la trayectoria normal (funciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n y=x)
 			call continuar
 			endp
 
@@ -602,7 +641,8 @@ start:
 			mov ax, a
 			add ax, 1
 			mov a, ax
-			mov b, ax 
+			mov ax,0
+			mov b,ax 
 	
 	; *Imprimir trayectoria normal* 
 	    proc normal
