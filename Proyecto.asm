@@ -30,6 +30,7 @@ mensaje_41 dw ' grados para esquivar el cono$'
 mensaje_5 dw 'El carro ha regresado a su curso normal en [ $' 
 mensaje_6 dw 'Te has salido del rango! $'
 mensaje_7 dw 'Te has ubicado en la misma casilla del cono! has chocado!$'
+invalid dw 'Comando no soportado! Intente de nuevo...$'
 adorno dw '****************** EMPIEZA EL RECORRIDO *************************$'
 empieza dw 'Usted empieza el recorrido en la casilla [ 1 ] [ 0 ]$'
     pkey db "Presiona cualquier tecla para continuar...$"  
@@ -115,9 +116,7 @@ start:
 	mov ah,9h
 	int 21h
 
-
-;Genera un numero pseudo aleatorio con la siguiente fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½rmula matemÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½tica x = (seed*r2 + r1) % lÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mite;
-		
+;Genera un numero pseudo aleatorio
 		proc random
 		mov ax, seed
 		mov cx, r2
@@ -134,17 +133,17 @@ start:
 		; x = x%limite
 		mov x,dx
 		mov ax,seed
-		; Agrego uno a la semilla para generar un nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero diferente la prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½xima vez
+		; Agrego uno a la semilla para generar un numero diferente la proxima vez
 		add ax,1
 		mov seed,ax
-		; Ya generÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ el numero al azar, ahora agregarÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ ese numero al azar a la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual del objeto para que vayan apareciendo obstÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½culos
+		; Ya genero el numero al azar, ahora agregara ese numero al azar a la posicion actual del objeto para que vayan apareciendo obstaculos
 		mov ax, x
 		add ax, a
 		mov x, ax
 		cmp ax, 20
 		endp
 
-		; *Imprimir posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n del cono*
+		; *Imprimir posicion del cono*
 		proc printob1: 		
 		lea dx,mensaje_1
 		mov ah,09h
@@ -174,7 +173,7 @@ start:
 		cwd
 		div cx
 		mov aux,dx 
-		;Imprimo decena en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
+		;Imprimo decena en numero de dos digitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -182,7 +181,7 @@ start:
 		mov ah,02h
 		int 21h
 		call print2
-		;Imprimo unidad en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos 
+		;Imprimo unidad en numero de dos digitos 
 		endp
 		
 		
@@ -219,7 +218,7 @@ start:
 		lea dx,ax
 		mov ah,02h
 		int 21h 
-		;Imprimo decena en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
+		;Imprimo decena en numero de dos digitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -227,7 +226,7 @@ start:
 		mov ah,02h
 		int 21h
 		call print3
-		;Imprimo unidad en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos 
+		;Imprimo unidad en numero de dos digitos 
 		endp
 		
 		proc print3
@@ -261,7 +260,7 @@ start:
 			cmp ax,x
 			jz resultado
 			jnz resultado_zero
-		;El objeto se moverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ indefinidamente pero para detener la ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n del programa en algun punto se determinÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ que el programa finalizarÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ la ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n cuando llegue a la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n 20
+		;El objeto se movera indefinidamente pero para detener la ejecucion del programa en algun punto se determina que el programa finalizara la ejecucion cuando llegue a la posicion 20
 		endp	
 		proc recorrido_2
 			mov ax, a
@@ -298,10 +297,10 @@ start:
 						mov ax, a
 						add ax, 1
 						mov a, ax
-						mov b, cx
+						mov cx,0
+						mov b,cx
 						mov bx, x
 						call comprobar_si_choco
-						call imprimiractual
 						cmp bx, ax
 						jz call resultado
 						ja call resultado_zero
@@ -312,7 +311,8 @@ start:
 		proc comprobar_si_choco
 		mov bx,a
 		cmp bx,x
-		jz chocaste 
+		jz chocaste
+		jnz call imprimiractual
 		endp
 
 		proc chocaste
@@ -327,8 +327,8 @@ start:
 
 
 		proc imprimiractual
-		; Si la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual del objeto+1 es igual a la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n del obstaculo el objeto se moverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½			
-			;*Imprimir posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual del objeto*
+		; Si la posicion actual del objeto+1 es igual a la posicion del obstaculo el objeto se movera			
+			;*Imprimir posicion actual del objeto*
 			lea dx,mensaje_2
     		mov ah,09h
     		int 21h
@@ -354,7 +354,7 @@ start:
 		cwd
 		div cx
 		mov aux,dx 
-		;Imprimo decena en numero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
+		;Imprimo decena en numero de dos digitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -363,7 +363,7 @@ start:
 		int 21h
 		mov ax,funcion
 		cmp ax, 0
-		;Veo si imprimo la posicion actual o la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n donde se moviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½
+		;Veo si imprimo la posicion actual o la posicion de se movio
 		jz call printact2
 		cmp ax, 1
 		jz call imprimirmovimiento2
@@ -372,7 +372,7 @@ start:
 		;Fuera de rango
 		cmp ax,10
 		jz call fin
-		;Imprimo unidad en numero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos 
+		;Imprimo unidad en numero de dos digitos 
 		endp
 		
 		
@@ -384,7 +384,7 @@ start:
 		int 21h
 		mov ax,funcion
 		cmp ax, 0
-		;Veo si imprimo la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n actual o la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n donde se moviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½
+		;Veo si imprimo la posicion actual o la posicion donde se movio
 		jz call printact2
 		cmp ax,1
 		jz call imprimirmovimiento2  
@@ -424,7 +424,7 @@ start:
 		cwd
 		div cx
 		mov aux,dx 
-		;Imprimo decena en nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½mero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
+		;Imprimo decena en numero de dos digitos
 		mov ax,aux
 		aam
 		add ax,03030h
@@ -470,6 +470,7 @@ start:
             lea dx,salto
             mov ah,09h
             int 21h
+			call recorrido
     		endp
     	
 			proc resultado :
@@ -495,6 +496,19 @@ start:
 			;Abajo
 				cmp ah,0x50
 				je fuerarango
+				cmp ah,0x4D
+				je der
+				jne invalido
+
+					proc invalido
+					lea dx, invalid
+					mov ah,9h
+					int 21h
+					lea dx, salto
+					mov ah,9h
+					int 21h
+					call cumple
+					endp
 
 					esquivar:
 					mov cx, b
@@ -554,7 +568,7 @@ start:
 
 		proc producto_escalar		
 		; Producto escalar(a, b) y(a - 1, b - 2)
-		; Producto escalar entre la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n antes de moverse y la posiciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n luego de moverse
+		; Producto escalar entre la posicion antes de moverse y la posicion luego de moverse
 			mov cx, a
 			dec cx
 			mov ax, x
@@ -566,7 +580,7 @@ start:
 			mul cx
 			add p, ax
 			mov caso, 0
-		; FÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½rmula usada para calcular el ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo = ( producto escalar * 10 ) % 90
+		; Formula usada para calcular el angulo = ( producto escalar * 10 ) % 90
 			mov cx, 10
 			mov ax, p
 			mul cx
@@ -588,7 +602,7 @@ start:
 		    endp
 		    
 		    proc uno 
-		    ;Imprime ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo de una cifra
+		    ;Imprime angulo de una cifra
 		    mov ax,p
 		    aam
     		add ax,03030h
@@ -599,7 +613,7 @@ start:
 		    endp                
 		    
 		    proc dos
-		    ;Imprime ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ngulo de dos cifras
+		    ;Imprime angulo de dos cifras
 		    mov ax,p
 		    mov cx,10 
     		cwd
@@ -616,7 +630,7 @@ start:
     		cwd
     		div cx
     		mov aux,dx 
-    		;Imprimo decena en numero de dos dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½gitos
+    		;Imprimo decena en numero de dos digitos
     		mov ax,aux
     		aam
     		add ax,03030h
@@ -633,7 +647,7 @@ start:
     		lea dx,salto
             mov ah,09h
             int 21h
-			;Devuelve el objeto a la trayectoria normal (funciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½n y=x)
+			;Devuelve el objeto a la trayectoria normal [ x ][ 0 ]
 			call continuar
 			endp
 
