@@ -20,7 +20,9 @@ inicio dw ' Bienvenido, para mover el carro utilice las flechas de izquierda y d
 instruccion dw 'Cuando el cono se encuentre 1 casilla adelante del carro utilice la flecha$'
 instruccion_2 dw 'de arriba para esquivarlo$'
 aclaracion dw 'Luego de esquivar el cono, el carro va a volver a su trayectoria normal de$'
-aclaracion_2 dw 'forma automÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡tica$'
+aclaracion_2 dw 'forma autom$'
+atilde dw 160
+aclaracion_21 dw 'tica$'
 advertencia dw 'Si choca o se sale del rango el programa termina$'
 mensaje_1 dw 'Cuidado! hay un cono en [ $'
 repeat dw 'Esperando a el conductor...$'
@@ -78,6 +80,12 @@ start:
 	mov ah,9h
 	int 21h
 	lea dx,aclaracion_2
+	mov ah,9h
+	int 21h
+	lea dx,atilde
+	mov ah,9h 
+	int 21h
+	lea dx,aclaracion_21
 	mov ah,9h
 	int 21h
 	lea dx,salto
@@ -265,11 +273,12 @@ start:
 						mov ax, a
 						sub ax, 1
 						mov a, ax
-						mov b, cx
 						mov bx, x
 						cmp ax,0
 						jz call fuerarango
-						cmp bx, obant
+						cmp ax, obant
+						jz chocaste
+						cmp bx,a
 						jz chocaste
 						jnz imprimiractual
 
