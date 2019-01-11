@@ -6,6 +6,7 @@ y dw 0
 a dw 1
 p dw 0
 b dw 0
+obant dw 0
 seed dw 1
 r1 dw 99
 l dw 6
@@ -118,6 +119,8 @@ start:
 
 ;Genera un numero pseudo aleatorio
 		proc random
+		mov ax, x
+		mov obant, ax ;Mover el obstaculo anterior por si acaso el usuario se regresa
 		mov ax, seed
 		mov cx, r2
 		mul cx
@@ -266,10 +269,9 @@ start:
 						mov bx, x
 						cmp ax,0
 						jz call fuerarango
-						cmp bx, ax
-						jz call resultado
-						ja call resultado_zero
-						jb call resultado_zero
+						cmp bx, obant
+						jz chocaste
+						jnz imprimiractual
 
 					der:
 						mov ax, a
@@ -289,6 +291,8 @@ start:
 		proc comprobar_si_choco
 		mov bx,a
 		cmp bx,x
+		jz chocaste
+		cmp bx,obant
 		jz chocaste
 		jnz call imprimiractual
 		endp
