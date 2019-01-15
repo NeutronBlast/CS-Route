@@ -16,9 +16,9 @@ auxp dw 0
 salto dw 10,13, '$'
 corchete dw ' ]$'
 corchetea dw ' [ $'
-inicio dw ' Bienvenido, para mover el carro utilice las flechas de izquierda y derecha$'
+inicio dw ' Bienvenido, para mover el carro utilice las flechas de arriba (avanzar) y abajo (retroceder) $'
 instruccion dw 'Cuando el cono se encuentre 1 casilla adelante del carro utilice la flecha$'
-instruccion_2 dw 'de arriba para esquivarlo$'
+instruccion_2 dw 'de derecha/izquierda para esquivarlo$'
 aclaracion dw 'Luego de esquivar el cono, el carro va a volver a su trayectoria normal de$'
 aclaracion_2 dw 'forma autom$'
 atilde dw 160
@@ -27,8 +27,7 @@ advertencia dw 'Si choca o se sale del rango el programa termina$'
 mensaje_1 dw 'Cuidado! hay un cono en [ $'
 repeat dw 'Esperando a el conductor...$'
 mensaje_2 dw 'El carro se encuentra en [ $'
-mensaje_3 dw 'El carro se acaba de ubicar en [ $'
-mensaje_4 dw ' con un giro de $'
+mensaje_3 dw 'El carro acaba de girar $'
 mensaje_41 dw ' grados para esquivar el cono$'
 mensaje_5 dw 'El carro ha regresado a su curso normal en [ $' 
 mensaje_6 dw 'Te has salido del rango! $'
@@ -265,10 +264,13 @@ start:
 			int 16h
 
 			begin_verificar:
-				cmp ah,0x4B
+			;Retroceder
+				cmp ah,0x50
 				je izq
-				cmp ah,0x4D
+			;Avanzar
+				cmp ah,0x48
 				je der
+				jne invalido
 					izq:
 						mov ax, a
 						sub ax, 1
@@ -481,15 +483,15 @@ start:
 			int 16h
 
 			begin_verify:
+			;Izq o Der
+				cmp ah,0x4D
+				je esquivar
+				cmp ah,0x4B
+				je esquivar
 			;Arriba
 				cmp ah,0x48
-				je esquivar
-			;Abajo
-				cmp ah,0x50
-				je fuerarango
-				cmp ah,0x4D
 				je der
-				cmp ah,0x4B
+				cmp ah,0x50
 				je izq
 				jne invalido
 
@@ -532,29 +534,14 @@ start:
 			lea dx,mensaje_3
     		mov ah,09h
     		int 21h
-            mov ax,a
-            cmp ax,10
-            jae call picaractx
-            jb call imprimirunidadactx
+			call imprimirmovimiento3
             endp
             
             proc imprimirmovimiento2
-    		lea dx,corchete
-    		mov ah,09h
-    		int 21h
-    		lea dx,corchetea
-    		mov ah,09h
-    		int 21h
-    		mov ax,b
-    		cmp ax,10
-    		jae call picaracty
-    		jb call imprimirunidadacty
+    		call imprimirmovimiento3
     		endp
     		
     		proc imprimirmovimiento3
-            lea dx,corchete
-            mov ah,09h
-            int 21h
             endp
    
 		call producto_escalar
@@ -585,9 +572,6 @@ start:
 			
 		;*Imprimir angulo*
 		    proc imprimirangulo
-			lea dx,mensaje_4
-    		mov ah,09h
-    		int 21h
     		mov ax,p
     		cmp ax,10
     		jae call dos
