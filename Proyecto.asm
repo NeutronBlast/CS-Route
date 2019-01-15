@@ -489,6 +489,8 @@ start:
 				je fuerarango
 				cmp ah,0x4D
 				je der
+				cmp ah,0x4B
+				je izq
 				jne invalido
 
 					proc invalido
