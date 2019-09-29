@@ -30,7 +30,7 @@ int main() {
 	printf("Cuando el cono se encuentre 1 casilla adelante del carro utilice la flecha\n");
 	printf("de arriba para esquivarlo\n");
 	printf("Luego de esquivar el cono, el carro va a volver a su trayectoria normal de\n");
-	printf("forma autom�tica\n\n");
+	printf("forma automatica\n\n");
 	printf("Si choca o se sale del rango el programa termina\n\n");
 	printf("****************** EMPIEZA EL RECORRIDO *************************\n\n\n");
 	printf("Usted empieza el recorrido en la casilla [ 1 ] [ 0 ]\n");
@@ -54,10 +54,8 @@ int main() {
 			; x = x % limite
 			mov x, dx
 			mov ax, seed
-			; Agrego uno a la semilla para generar un nÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½mero diferente la prÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½xima vez
 			add ax, 1
 			mov seed, ax
-			; Ya generÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ el numero al azar, ahora agregarÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ ese numero al azar a la posiciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n actual del objeto para que vayan apareciendo obstÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½culos
 			mov ax, x
 			add ax, a
 			mov x, ax
@@ -65,7 +63,7 @@ int main() {
 			; endp
 	}
 
-	printf("Cuidado! hay un cono en la posici�n [ %d ] [ %d ]", x, y);
+	printf("Cuidado! hay un cono en la posici�n [ %d ] [ %d ]", x, y);
 	printf("Esperando al conductor...\n\n");
 	_asm {
 	recorrido:
@@ -78,7 +76,6 @@ int main() {
 			cmp ax, x
 			jz resultado
 			jnz resultado_zero
-			; El objeto se moverÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ indefinidamente pero para detener la ejecuciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n del programa en algun punto se determinÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ que el programa finalizarÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ la ejecuciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n cuando llegue a la posiciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n 20
 			; endp
 			recorrido_2 :
 		mov ax, a
@@ -204,7 +201,6 @@ int main() {
 
 		producto_escalar :
 		; Producto escalar(a, b) y(a - 1, b - 2)
-			; Producto escalar entre la posiciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n antes de moverse y la posiciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n luego de moverse
 			mov cx, a
 			dec cx
 			mov ax, x
@@ -216,7 +212,6 @@ int main() {
 			mul cx
 			add p, ax
 			mov caso, 0
-			; FÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½rmula usada para calcular el ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½ngulo = (producto escalar * 10) % 90
 			mov cx, 10
 			mov ax, p
 			mul cx
@@ -231,7 +226,6 @@ int main() {
 	}
 	printf(" con un angulo de %d grados\n", p);
 	_asm {
-		; Devuelve el objeto a la trayectoria normal(funciÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½n y = x)
 		jmp continuar
 		; endp
 
