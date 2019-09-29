@@ -1,8 +1,6 @@
 <br />
 <p align="center">
-
   <h2 align="center">Car simulation</h3>
-
   <p align="center">
     This is a very simple "game" in console, you advance through the track using the left and right arrows, you avoid the obstacles using the up arrow, if you don't avoid the obstacle or get out the track the game is over
     <br />
