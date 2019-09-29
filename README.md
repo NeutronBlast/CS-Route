@@ -31,7 +31,6 @@
 ## About The Project
 
 This project was made for computer structure's subject
-`metalsonic21`, `CS-Route`
 
 
 ### Built With
@@ -47,18 +46,12 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* emu 8086
-```sh
-[Download emu 8086](https://down01.wxsrv.com/descargando/024/2412/emu8086/057/emu8086.exe?val=2412&loc=descargar)
-```
+* [emu 8086](https://down01.wxsrv.com/descargando/024/2412/emu8086/057/emu8086.exe?val=2412&loc=descargar)
+
 
 ### Installation
- 
-1. Clone the repo
-```sh
-git clone git@github.com:metalsonic21/CS-Route.git
-```
 
+1. [Clone the repo](https://github.com/metalsonic21/CS-Route/archive/master.zip)
 2. Compile the project
 
 
@@ -79,7 +72,7 @@ Use the left arrow to move one slot to the left and the right arrow to move one 
 
 1. To calculate the obstacle position the program generates a pseudo random number
 2. Checks if a key is pressed and if that key is the up, left or right arrows, depending of which arrow is pressed it will execute a different action: (up = avoid obstacle, left = move to the left, right = move to the right)
-3. After an obstacle is avoided it calculates the angle of rotation, the teacher left us to create any formula even if it doesn't make sense in the reality, I used the following:
+3. After an obstacle is avoided it calculates the angle of rotation, the teacher let us to create any formula even if it doesn't make sense in the reality, I used the following:
    ```
    [(a,b)*(a-1,b-1)]*10 mod 90
    ```
